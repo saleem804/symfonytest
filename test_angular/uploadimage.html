@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+
+<style>
+.link:hover{
+cursor:pointer;
+color:#286090;
+}
+</style>
+<body>
+
+<div ng-app="myApp" ng-controller = "fetchImagesCtrl">
+	<div>
+		
+		<div style="max-width:300px;margin:20px auto;">
+			<div id="top" class="form-group">
+				<button ng-click="addNewImg()" ng-show="savebutton == 'Update'">Add New Image</button>
+			</div>	
+			<div class="form-group">
+				<input type="hidden" ng-model="imageId"/>
+				<label for="exampleInputName2">Label</label>
+				<input type="text" ng-model="label" class="form-control" id="exampleInputName2" placeholder="Enter Image Label" required>
+			</div>
+			<div class="form-group">
+				<label>Choose Image</label>
+				<input type="file" file-model="myFile" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<img ng-show="showimg" style="width:300px" src="{{ image_dir + FileName }}" alt="{{ label }}">
+			</div>
+			<div class="form-group">
+				<button class="btn btn-block btn-primary" ng-click="uploadFile()">{{savebutton}}</button>
+			</div>
+			<div class="form-group">
+				<img ng-show="showloader" style="width:100px;margin-left: 100px;" src="{{ apibaseUrl + 'loading_spinner.gif' }}">
+			</div>
+			<label ng-show="showmsg">{{ ResponseMessage}}</label>
+		</div>
+		
+	</div>
+	<div>
+		
+		<table class="table table-bordered" style="max-width: 400px;margin: auto;">
+			<tr ng-repeat="x in Images">
+				<td><img style="width:300px" src="{{ image_dir + x.FileName }}" alt="{{ x.label }}"></td>
+				<td><b class="link" ng-click="edit(x.id, x.label, x.FileName)">Edit</b></td>
+				<td><b class="link" ng-click="delete(x.id)">Delete</b></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<script src= "js/angular.min.js"></script>
+<script src= "js/site.js"></script>
+
+</body>
+</html>
